@@ -10,7 +10,7 @@
                 key="play">
                 <h4 class="game-play__question">
                     Your Question: 
-                    {{ a }} + {{ b }} = ?
+                    {{ rule > 5.5 ? `${a} - ${b} = ?` : `${a} + ${b} = ?` }}
                 </h4>
                 <p>Choose one correct answer bellow</p>
                 <hr>
@@ -72,6 +72,7 @@ export default {
             b:'', 
             hard: 1,  
             name: '',
+            rule: '',
         }
     },
 
@@ -81,26 +82,32 @@ export default {
     methods:{
 
         createAns(){
-            this.a = Math.round(Math.random()*40*this.hard-20*this.hard);
-            this.b =Math.round(Math.random()*60+20*this.hard);
+            this.a = Math.round(Math.random()*30*this.hard+10);
+            this.b =Math.round(Math.random()*30*this.hard+7);
 
-            const rule = Math.random()*10+0;
+            this.rule = Math.random()*10;
             let ansA = this.ansA;
             let ansB = this.ansB;
             let ansC = this.ansC;
-            this.correctAns = this.a + this.b;
 
             ansA = this.correctAns + 9;
             ansB = this.correctAns - 10;
             ansC = this.correctAns + 11;
-            console.log(rule);
-            if(rule <= 2.5){
+            console.log(this.rule);
+            if(this.rule <= 2.5){       
+
+                this.correctAns = this.a + this.b;
                 this.answers = [this.correctAns, ansA, ansC, ansB];
-            }  else if (rule > 3 && rule < 5.5 ) {
+            }  else if (this.rule > 3 && this.rule < 5.5 ) {      
+
+                this.correctAns = this.a + this.b;
                 this.answers = [ansC, this.correctAns, ansA, ansB];
-            } else if (rule > 5.5 && rule <= 7.5) {
+            } else if (this.rule > 5.5 && this.rule <= 7.5) {
+
+                this.correctAns = this.a - this.b;
                 this.answers = [ansC, ansA , this.correctAns, ansB];
-            } else {
+            } else {                
+                this.correctAns = this.a - this.b;
                 this.answers = [ansB, ansA , ansC, this.correctAns];
             }
         },
