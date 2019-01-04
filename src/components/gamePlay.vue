@@ -63,10 +63,7 @@ export default {
     data(){
         return{
             correctAns: '',
-            answers: [],    
-            ansA: '',        
-            ansB: '',        
-            ansC: '', 
+            answers: [], 
             isPlay: true,  
             a:'',
             b:'', 
@@ -82,33 +79,46 @@ export default {
     methods:{
 
         createAns(){
-            this.a = Math.round(Math.random()*30*this.hard+10);
-            this.b =Math.round(Math.random()*30*this.hard+7);
+            this.a = Math.ceil(Math.random()*50*this.hard+20*this.hard);
+            this.b =Math.round(Math.random()*20*this.hard+7*this.hard);
 
             this.rule = Math.random()*10;
-            let ansA = this.ansA;
-            let ansB = this.ansB;
-            let ansC = this.ansC;
 
-            ansA = this.correctAns + 9;
-            ansB = this.correctAns - 10;
-            ansC = this.correctAns + 11;
+            const fakeAns = ()=>{
+                const ansA = this.correctAns + 9;
+                const ansB = this.correctAns - 10;
+                const ansC = this.correctAns + 11;
+                if(this.rule <= 2.5){
+                    this.answers = [this.correctAns, ansA, ansC, ansB];
+                } else if (this.rule > 3 && this.rule < 4.5 ) {                
+                    this.answers = [ansC, this.correctAns, ansA, ansB];
+                } else if (this.rule >= 4.5 && this.rule <= 7.5) {
+                    this.answers = [ansC, ansA, this.correctAns, ansB];
+                } else {
+                    this.answers = [ansC, ansA, this.correctAns, ansB]
+                }
+            }
+
+
             console.log(this.rule);
-            if(this.rule <= 2.5){       
+            if(this.rule < 2.5){       
 
                 this.correctAns = this.a + this.b;
-                this.answers = [this.correctAns, ansA, ansC, ansB];
-            }  else if (this.rule > 3 && this.rule < 5.5 ) {      
+                fakeAns();
+
+            }  else if (this.rule >= 2.5 && this.rule < 4.5 ) {      
 
                 this.correctAns = this.a + this.b;
-                this.answers = [ansC, this.correctAns, ansA, ansB];
-            } else if (this.rule > 5.5 && this.rule <= 7.5) {
+                fakeAns();
+
+            } else if (this.rule >= 4.5 && this.rule < 7.5) {
 
                 this.correctAns = this.a - this.b;
-                this.answers = [ansC, ansA , this.correctAns, ansB];
+                fakeAns();
+
             } else {                
                 this.correctAns = this.a - this.b;
-                this.answers = [ansB, ansA , ansC, this.correctAns];
+                fakeAns();
             }
         },
 
