@@ -1,29 +1,29 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div class="container">
+    <div class="btn-group d-flex ">
+      <router-link tag="a" class="btn btn-primary nav__link" to="/">
+        Play Game
+      </router-link>
+      <router-link tag="a" class="btn btn-warning nav__link" to="/rank">
+        Your rank
+      </router-link>
     </div>
-    <router-view/>
-  </div>
+    <transition
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut"
+      mode="out-in">
+      <router-view></router-view>
+    </transition>
+    </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+  .nav{
+    &__link{
+      justify-content: center;
+      margin-right: 1.6rem;
+      margin-top: 3rem;
+      margin-bottom: 2rem;
     }
   }
-}
 </style>
